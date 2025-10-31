@@ -1,14 +1,17 @@
 from ultralytics import YOLO
 from run_inference import run_inference
-import argparse
-import subprocess
+
 from contextlib import redirect_stdout
 import os
 import pexpect
-import sys
+
 from ctypes import cdll, c_char_p
 
-lib = cdll.LoadLibrary("./build/bin/libbitnet.so")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+lib_path = os.path.join(BASE_DIR, "build/bin/libbitnet.so")
+
+lib = cdll.LoadLibrary(lib_path)
 
 # Return type for string-returning functions
 lib.bitnet_get_last_output.restype = c_char_p
